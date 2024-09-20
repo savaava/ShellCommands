@@ -98,50 +98,6 @@ netstat -nob | cat -n
 netstat -nob | cat -n | grep ":22"
     45    TCP    200.200.5.101:22       200.200.5.82:54864     ESTABLISHED     10032
 
-
-netstat
-# mostra le connessioni TCP/UDP di rete attualmente attive/ESTABLISHED con una macchina esterna (ind esterno) 
-# e le relative porte 
-
-netstat -n
-# mostra le macchine esterne con cui abbiamo una connessione TCP/UDP in formato numerico -> ip_address:port 
-
-netstat -f
-# mostra nomi di dominio completi (FQDN) per gli ip address esterni
-# non ha senso usarlo insieme a -n perchè o voglio l'ip address della macchina remota o 
-# l'alias con cui si identifica
-
-netstat -o
-# mostra il PID del processo proprietario/locale associato alle connessioni
-
-netstat -b
-# mostra l'eseguibile coinvolto nella creazione di ogni connessione o porta di ascolto
-
----------------ESEMPI--------------- (git bash)
-netstat -nob | cat -n 
-# produce una lista di tutti i processi eseguibili della macchina locale, con i relativi
-# PID, che sono coinvolti nelle connsessioni TCP/UDP ESTABLISHED e
-# e l'address e la porta della macchina remota con cui abbiamo stabilito la connessione.
-
-# Mostro una parte dell'output (righe 45, 46) dal pc col server ssh aperto
-# che evidenzia la connessione tramite ssh che è avvenuta a seguito dell'esecuzione 
-# del comando ssh <domain|username>@<servername> da parte del client
-    4    Proto  Indirizzo locale          Indirizzo esterno        Stato           PID
-    ...
-    45    TCP    200.200.5.101:22       200.200.5.82:54864     ESTABLISHED     10732
-    46   [sshd.exe]
-    ...
-
-# comando eseguito dal client:
-    4    Proto  Indirizzo locale          Indirizzo esterno        Stato           PID
-    ...
-    24    TCP    200.200.5.82:54864       200.200.5.101:22     ESTABLISHED     14092
-    25   [sshd.exe]
-    ...
-
-netstat -nob | cat -n | grep ":22"
-    45    TCP    200.200.5.101:22       200.200.5.82:54864     ESTABLISHED     10032
-
 #-------------------------------------------------------------------------------------------------------------------
 ssh <domain|username>@<servername>
 # to connect to OpenSSH Server from a Windows or Windows Server device with the OpenSSH client installed

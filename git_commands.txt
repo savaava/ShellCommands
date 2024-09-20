@@ -1,0 +1,78 @@
+git config --list			mostra tutte le impostazioni di Git configurate a livello globale sul tuo sistema
+git config --global --list
+git config --system --list
+git config --local --list
+git config --get <nome_config>
+
+
+git init				crea una repository nella curr_dir (crea la sottodir .git)
+
+
+git status				mostra i commits in corso, 
+						i file in rosso ancora da aggiungere nella staging area, 
+						i file in verde aggiunti nella staging area,
+						i file in rosso eliminati dalla staging area,
+						i file in rosso modificati rispetto a quelli attualmente nella staging area già aggiunti,
+						i file in verde rinominati nello staging area
+
+
+git fetch								only copies changes into your local Git repo,
+										but doesn't copy changes from the remote repo
+										directly into the working directory like pull
+
+
+git add <file>...						aggiunge i file nella staging area
+
+
+git commit -m "text"					commit dei file inseriti nella staging area
+git commit -a -m "text"					(-a = all) (-m = message) skip staging area
+
+
+git ls-files							elenca tutti i file che sono attualmente 
+										tracciati nel tuo repository
+
+
+git rm <file>...						rimuove i file e non c'è bisogno di fare git
+										add, pronto per git commit
+
+
+git mv <OldName_file> <NewName_file>	rinomina il file <OldName_file> e non c'è 
+										bisogno di fare git add, pronto per git commit
+
+
+git push
+
+
+git pull
+
+
+git reset
+
+
+----------------------------------------------------------------------------------------
+ERRORE 1 
+error: object file .git/objects/31/65...b0 is empty
+fatal: loose object 31...b0 (stored in .git/objects/31/65...b0) is corrupt
+
+risoluzione 1:
+find .git/objects/ -type f -empty | xargs rm  -> verranno prima rimossi tutti i file 
+						 oggetto vuoti che causano il 
+						 danneggiamento dell'archivio nel suo 
+						 complesso
+git fetch -p	       -> verranno recuperati gli oggetti mancanti
+git fsck --full        -> verrà eseguito un controllo completo dell'archivio oggetti
+
+risoluzione 2:
+git fsck --full        -> verrà eseguito un controllo completo dell'archivio oggetti,
+			  così individuo i file corrotti, ricordo dove si trovano
+			  e li elimino. Adesso devo ricaricarli nell'esatta posizione
+			  in cui si trovavano, prendendoli dal pc che non ha problemi,
+			  in cui tali file non saranno corrotti.
+
+--------------------------------------------------------------------------------------
+ERRORE 2
+error: Pulling is not possible because you have unmerged files.
+git rebase --skip      -> salta semplicemente l’intero commit che sta causando il
+			  conflitto. Saltare un commit potrebbe comportare la perdita
+			  di alcune modifiche
+

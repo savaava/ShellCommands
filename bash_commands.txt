@@ -1,0 +1,545 @@
+Shell è un termine generico che si riferisce a qualsiasi interfaccia a riga di comando
+Esistono diverse shell, come sh (Bourne Shell), csh (C Shell), ksh (Korn Shell), 
+PowerShell, bash, ... 
+
+Bash = Bourne Again SHell 
+è una shell specifica, molto diffusa nei sistemi operativi Unix-like, come Linux
+
+--------------------------------------------------------------------------------------
+comando [argomenti…] [modificatori…]
+argomenti -> opzioni o dati 
+opzioni del comando prima degli altri argomenti, e che comincino con - o con -- 
+dati su cui il comando deve lavorare (pathname di file o directory)
+modificatori sono introdotti da caratteri speciali
+
+Pathname assoluti cominciano con "/"
+Pathname relativi partono dalla directory corrente
+
+.       punta alla dir corrente
+
+..      punta alla dir genitore
+
+~ 	    carattere speciale 
+	    da sola      -> è il pathname della home dell'utente corrente
+	    con username -> è il pathname della home di quell'utente
+
+--------------------------------------------------------------------------------------
+Quoting di un singolo carattere: il carattere speciale viene preceduto da \
+Quoting di un gruppo di caratteri: racchiudendo i caratteri in una coppia di " o '
+ma alcuni caratteri speciali (in particolare $) non vengono quotati
+
+('') 	-> 	preservano il valore letterale di tutti i caratteri all’interno.
+("") 	-> 	preservano il valore letterale di tutti i caratteri all’interno,
+			ad eccezione di ($), (`), (\).
+
+In fase di espansione, la shell cancella il carattere hash #
+  
+--------------------------------------------------------------------------------------
+?  nell’argomento corrisponde a un qualsiasi carattere singolo nel 
+   pathname (escluso /)
+*  nell’argomento corrisponde a una sequenza di lunghezza
+   qualsiasi (anche 0) di caratteri qualsiasi (escluso /) nel pathname
+
+[ ]: singolo carattere tra quelli elencati
+{ }: stringa tra quelle elencate
+ls -l ./thre*_[1-4].c
+ls -l ./{thr*,esercizio}_?.c
+
+--------------------------------------------------------------------------------------
+Ctrl-C: interrompe l’esecuzione di un comando;
+Ctrl-S: blocca l’output che scorre sullo schermo;
+Ctrl-Q: sblocca lo stesso output.
+
+apropos <str> 		Visualizza la lista di tutti i comandi che contengono la stringa
+                    passata per parametro nella loro descrizione sintetica;
+
+whatis <comando>    Visualizza la descrizione sintetica del comando passato come 
+                    parametro;
+
+which <comando>     restituisce il percorso assoluto dei comandi di shell
+
+who                 mostra chi ha fatto il login
+
+man <comando>       Visualizza la pagina del manuale in linea relativa al comando 
+		      		passato come parametro.
+
+--------------------------------------------------------------------------------------
+ln   crea link a file e directory
+
+rm   rimuove un link da una directory, ma non cancella necessariamente il file    
+     corrispondente, perchè il file viene cancellato solo quando viene rimosso il suo 
+     ultimo link
+     
+ln ./source_file.txt collegamento_rigido.txt
+Hard Link: è un nome aggiuntivo per un file esistente. Gli hard link associano due o
+           più nomi di file allo stesso i-node.È possibile creare uno o più hard link
+           per un singolo file. Non è possibile creare hard link per directory e file
+           su un filesystem o una partizione diversi.
+
+ln -s ./source_file.txt ../Downloads/collegamento_simbolico.txt 
+Soft Link: è un puntatore indiretto a un file o a una directory. A differenza di un
+           hard link, un symbolic link può puntare a un file o a una directory su un
+           filesystem o una partizione diversi.
+        
+--------------------------------------------------------------------------------------
+chmod [opzioni] <modalità> <file|dir>
+					modifica i permessi di accesso ai file|dir
+					(u=proprietario, g=group, o=others, a=all)
+					(r=read, w=write, x=execute)
+ci sono due <modalità>: 			
+
+<u|g|o|a><+|-><r|w|x>		<+> -> aggiunge il permesso di <r|w|x> a <u|g|o|a>
+							<-> -> toglie   il permesso di <r|w|x> a <u|g|o|a>
+							è possibile aggiungere più permessi contemporaneamente
+				
+<xxx>				3 numeri in ottale, ugnuno interpretato a 3 bit:
+					1° -> rwx di u 
+					2° -> rwx di g 
+					3° -> rwx di o 
+
+
+---------ESEMPI---------
+chmod u+rwx prova.txt
+chmod a+rw prova.txt
+chmod u+x prova.txt
+chmod 766 prova.txt
+
+--------------------------------------------------------------------------------------
+less         	  	permette di ispezionare i file ricevuti in input avanti e indietro
+more 
+
+ps           	  	processi che la shell sta eseguendo
+
+
+touch <file> 	  	se il file non esiste già crea il file vuoto
+             	  	se il file     esiste già aggiorna l’ora dell’ultimo accesso e 
+             	  	dell’ultima modifica al momento corrente. 
+
+
+pwd               	print absolute pathname of current/working directory
+
+
+cd <pathname>    	change current dir
+
+
+ls <path>...  	  	mostra il contenuto di una dir
+ls -a         	    (-a = --all)  mostra anche i contenuti nascosti
+ls -l         	    (-l = --long) mostra in fomato lungo della dir: permessi, bytes, età
+ls -lh		  		(-h = --human-readable) con -l o -s, mostra le dim in KB, MB, GB 
+ls -1 		 		mostra 1 elemento per rigo
+ls -R				(-R = --recursive) lista anche le sottodir ricorsivamente
+ls -r         	    (-r = --reverse) inverte l'ordine di output
+ls -t		  		sort by time -> newest first
+ls -S		  		sort by size -> larger first
+ls -s		  		(-s = --size) mostra anche il numero di blocks allocati
+
+
+echo         		display a line of text written 
+echo -e      		enable interpretation of backslash escapes, like \n
+echo -n      		non fa andare a capo alla fine dell'output
+
+
+wc <file> <file>...	stampa #linee #parole #byte contenuti in uno o più file in input
+wc -l       	    (-l = --lines) stampa solo il numero di linee
+wc -w       	    (-w = --words) stampa solo il numero di parole
+wc -c  	    	    (-c = --bytes) stampa solo il numero di caratteri
+	    	    	e il nome del/dei file, se questi sono in input come argomenti
+
+
+cat               	mostra il contenuto di un file di testo preso in input
+cat -n       	  	(-n = --number)          numera le linee
+cat -b		  	  	(-b = --number-nonblank) numera le linee non vuote
+cat -s		  	  	(-s = --squeeze-blank)   comprime le linee vuote multiple in una sola
+cat -A			  	(-A = --show-all) 	   mostra i caratteri nascosti (CRLF e TAB)
+cat -E 			  	(-E = --show-ends)	   mostra $ at end of each lines
+
+
+tail         	 	mostra di default le ultime 10 righe di un file in input
+tail -n <x>    	 	(-n = --lines) mostra le  ultime x righe
+tail -c <x>	  		(-c = --bytes) mostra gli ultimi x caratteri
+
+head         	  	mostra di default le prime  10 righe di un file in input
+head -n <x>    	  	(-n = --lines) mostra le prime x righe
+head -c <x>	  		(-c = --bytes) mostra  i primi x caratteri
+
+
+mkdir <name> ...	crea una o più dir
+rmdir <dir> ...    	rimuove 1 o più dir (empty) 
+
+
+rm <files|dirs>   	rimuove 1 o più file o dir
+rm -r		  		(-r = --recursive)   rimuove le dir e i loro contenuti ricorsivamente
+rm -i		  		(-i = --interactive) prompt before every removal
+rm -f 		  		(-f = --force) 	 ignore nonexistent files and arguments,
+										 never prompt
+rm -v				(-v = --verbose) explain what is being done
+
+
+mv <source_dir|source_file> <dest_dir|dest_file> 	
+					sposta uno o più file da una directory all’altra, oppure modifica
+					il nome di un file, con i relativi permessi
+mv -i				(-i = --interactive) prompt before overwrite
+mv -n				(-n = --no-clobber)  non sovrascrive i file esistenti
+mv -u       		(-u = --update)      sposta solo quando il file source è più recente 
+                    		    		 del dest_file, o quando il dest_file non esiste
+
+
+cp <source_dir|source_file> <dest_dir|dest_file> 
+					crea una copia di uno o più file, con i relativi permessi,
+					se il nome della dest è lo stesso di un elemento già presente,
+					allora sovrascrive (overwrite)
+cp -r				(-r = --recursive)   copia le dir e i loro contenuti ricorsivamente
+cp -i				(-i = --interactive) prompt before overwrite
+cp -n				(-n = --no-clobber)  non sovrascrive i file esistenti
+cp -v				(-v = --verbose) explain what is being done
+
+
+read <var> <var>... legge da tastiera 1 o più stringhe e la/le inserisce in var
+read -p      	    per aggiungere un prompt text 
+read -s      	   	non mostra ciò che si scrive in input da tastiera
+
+
+grep <stringa>  	per cercare una stringa in un file testo passato in input
+                	-> restituisce in output tutte le righe in cui è presente
+                	tale stringa, almeno volta
+grep -i				(-i = --ignore-case) non è case sensitive
+grep -v				(-v = --invert-match) Invert the sense of matching,
+					to select non-matching lines
+grep -c         	(-c = --count) stampa solo il numero delle linee che matchano,
+					equivalente a grep <stringa> | wc -l
+					With the -v option, count  non-lines.
+		
+
+sort -n  			(-n = --numeric-sort) Legge le linee del suo standard input, le ordina 
+					in base al primo campo (interpretato come valore numerico) e le stampa 
+					in output in ordine crescente 
+sort -nr			(-r = --reverse) fa la stessa cosa, ma in ordine decrescente
+
+
+basename <file> <suffix>	Print NAME with any leading directory components
+			     			removed. If specified, also remove a trailing SUFFIX.
+-a <file>...	            (-a = --multiple) support multiple pathname
+-s <suffix> <file>...	    (-s = --suffix) remove a trailing suffix, implies -a
+-z		             		(-z = --zero) end each output line with NUL, not newline
+
+
+awk 'pattern {action}'       utile per manipolare file di testo con colonne di dati
+awk '{print $i}’             stampa l’i-ma stringa di ogni riga di del file in input
+
+
+${var:pos:len}		Per estrarre una sottostringa da una stringa, contenuta
+${var:pos}		    in una variabile
+			     	la sottostringa parte dal carattere pos della stringa e
+			     	len è il numero di caratteri da estrarre
+			     
+echo `expr index "$stringa" <carattere>`
+			     	restituisce la posizione della prima occorenza di
+			     	<carattere> trovata nella stringa. 
+			     	se non lo trova restituisce 0.
+
+
+tr SET1 [SET2]     	Translate, squeeze, and/or delete characters from 
+		   			standard input, writing to standard output. SET1 and SET2
+		   			specify arrays of characters that control the action.
+tr -c 		   		(-c = --complement) usa il complemento di SET1
+tr -d		   		(-d = --delete) delete characters in SET1 (only SET1)
+tr char1-char2     	SET -> all characters from CHAR1 to CHAR2
+tr [:upper:]	   	SET -> all upper case letters
+tr [:lower:]	   	SET -> all lower case letters
+tr [:alpha:]	   	SET -> all letters
+tr [:digit:]       	SET -> all digits
+tr [:alnum:]       	SET -> all letters and digits
+
+
+bc -l			    (-l = --mathlib) vengono pre-caricate alcune funzioni:
+					s(x)  The sine   of x, x in rad
+					c(x)  The cosine of x, x in rad
+					a(x)  The arctangent of x, arctangent in rad
+					l(x)  The natural logarithm of x
+					e(x)  The exponential to the value x
+			     	riceve in input un file di testo con 1 o più funzioni
+scale=x			     x = numero di cifre decimali.
+			     	eventualmente nel testo di input si inserisce scale prima
+			     	delle funzioni per stampare il risultato delle funzioni
+			     	con una precisione di x cifre decimali.
+
+
+sed "s/str1/str2/" <file>   (s/ -> substitute/) Trova la PRIMA occorrenza di str1 in 
+			     			ogni rigo del file e la sostituisce con str2,
+sed "s/str1/str2/g" <file>  (/g -> /global) Trova TUTTE le occorrenze di str1 in ogni
+			     			rigo del file e la sostituisce con str2,
+			     			output -> il testo modificato, ma il file intatto.			     
+sed -i			     		(-i = --in-place) modifica il file di origine.
+sed --in-place=<suffix>     specificando il suffisso si crea un backup
+
+
+date 				mostra la data -> giorno, mese, anno, orario abbreviati
+date +"%F"			mostra la data in formato <AAAA_MM_GG>
+date +"%A"			mostra solo il giorno per intero
+date +"%a"			mostra solo il giorno abbreviato
+date +"%B"			mostra solo il mese   per intero
+date +"%b"			mostra solo il mese   abbreviato
+
+
+---------ESEMPI---------
+ls -lth
+ls -1t
+
+grep "hello w" ./prova.txt
+cat ./prova.txt | grep "hello w"
+grep "hello w" < ./prova.txt
+
+basename -s .sh $(find ./ -maxdepth 1 -name "*.sh" -type f)
+
+var="hello world"; echo ${var:2:6}; echo "la stringa originale: ${var:0}"
+
+echo -e "Ciao\nMondo\nhello" | grep "[[:upper:]]" | tr [:upper:] [:lower:]
+
+echo -e "scale=3 \n 12/7; scale=5; e(1)" | bc -l
+echo 12.0/3 | bc -l
+
+sed -i "s/hello/ciao/g" prova.txt; cat prova.txt
+sed --in-place=.bak "s/okok/weee/g" prova.txt; cat prova.txt prova.txt.bak
+
+--------------------------------------------------------------------------------------
+find <pathname> <pathname> ... [opzioni] 
+
+-maxdepth <n>		il comando lavora al massimo fino a n levels di dir dopo il punto  
+					di partenza. -maxdepth 1 significa che find opera solo su pathname
+-mindepth <n>		il comando lavora come minimo a n levels dopo il punto di partenza
+					-mindepth 2 -> find opera fino alle prime sottodir
+
+-name <nome>		consente di selezionare tutti i pathname il cui nome “combacia”
+					con l’argomento nome; l’argomento può contenere i caratteri 
+					? e * (quotati)
+-iname <nome>		stesso effetto di -name, ma non è case sensitive
+
+-type <f|d|l>		tipo consente di selezionare tutti i pathname di elementi che
+					corrispondono a un certo tipo: 
+					f -> file regolari 
+					d -> directory
+					l -> link simbolici
+
+-empty 				consente di selezionare tutti i file di dimensione 0 
+-size <n> 			consente di selezionare  i pathname di  size = n
+					<+n> -> sono selezionati i pathname con size > n
+					<-n> -> sono selezionati i pathname con size < n
+					<n>c -> size interpretata come caratteri (Byte)
+					<n>k -> size interpretata come kilobyte
+					<n>M -> size interpretata come Megabyte
+					<n>G -> size interpretata come Gigabyte
+
+-ctime <n> 			consente di selezionare i pathname creati n giorni fa
+					<+n> -> sono selezionati i file più vecchi della data specificata
+					<-n> -> sono selezionati i file più nuovi  della data specificata
+-ctime          	-> età del file in giorni
+-cmin           	-> età del file in minuti
+-mtime e -mmin  	-> data di ultima modifica
+-atime e -amin  	-> data di ultimo accesso
+
+-print 		        		stampa il pathname su standard output (azione di default)
+-fprint filename    		scrive il pathname nel file indicato
+-delete             		rimuove il pathname con il comando rm
+-exec <comando> {} ... \;   esegue il comando specificato
+			     			negli argomenti, la stringa {} viene sostituita con il 
+			     			pathname di ogni elemento trovato da find
+			     			terminare con un ; quotato
+-ok <comando> {} ... \;     come -exec, ma chiede conferma all’utente prima di
+			     			eseguire ogni comando
+
+---------ESEMPI---------
+find ./ ../threads -iname "*r*_*.*"
+		
+find ./ -maxdepth 1 -name "*ript*.sh" -type f -ctime -1 | wc -l
+basename -a $(find ./ ../threads -maxdepth 1 -name "*_*" -type f -cmin +60)
+
+basename -s .sh $(find ./ -maxdepth 1 -name "*ript*.sh" -type f -size +700c)
+find ./ -maxdepth 1 -name "*ript*.sh" -type f -size +700c -exec basename -s .txt {} \;
+
+find ../Documents/es_so/ ./ -type f -mtime -7		     
+			     
+find ./ -type f -mtime -365 -exec mv {} ../Desktop/ ";"
+find ./ -ctime +9 -iname "*kk.c" -delete
+
+find $1 -maxdepth 1 -iname "*$2*" -type f -exec mv {} $3 \; -print | wc -l
+find $1 -maxdepth 1 -iname "*$2*" -type f -ok mv {} $3 \;
+find ./ -maxdepth 1 -name "*il*" -exec basename -s .txt {} \;
+
+chmod 700 $(find ./ -maxdepth 1 -name "script_*" -type f); ls -l
+find $1 -maxdepth 1 -name "$2*" -type f -exec chmod 700 {} \; -exec basename {} .sh \;
+
+--------------------------------------------------------------------------------------
+comando [argomento…] < pathname   redirezione dello standard input
+comando [argomento…] > pathname   redirezione dello standard output, cancellando il 
+                                  vecchio contenuto del file prima di scrivere
+comando [argomento…] >> pathname  redirezione dello standard output, aggiungendolo in
+                                  coda al contenuto già esistente nel file
+                                  
+Quando si usa la redirezione in input di un file in uno script, all'interno di questo
+eseguendo read var, nella variabile var ci sarà la prima riga del file.
+eseguendo read var nuovamente, in var ci sarà la seconda riga del file.
+Si usa < con il while
+Si usa > con il while e con il for
+
+--------------------------------------------------------------------------------------
+comando1 | comando2 | … | comandoN   Lo standard output di ciascun processo è connesso 
+                                     dalla shell allo standard input del processo
+                                     successivo (usando il meccanismo delle pipe
+                                     anonime la comunicazione tra i processi)
+
+--------------------------------------------------------------------------------------
+var = valore    		le variabili contengono sempre informazioni di tipo stringa
+$var             		la shell espande sostituendola col valore della variabile
+${var}           		è utile quando il nome della variabile è immediatamente
+                        seguito da altri caratteri alfanumerici
+var=../Downloa
+ls -l ${var}ds/
+
+alias					mostra tutti gli alias che ho creato
+alias <alias>=<comando>	per eseguire il comando usando l'alias scelto, 
+						vale solo per la sessione corrente di uso del terminale
+unalias <alias>			per disabilitare l'alias specificato
+
+export var		   		i processi figlio erediteranno questa var e la potranno 
+			   			usare come le altre variabili d'ambiente
+export var=valore       direttamente
+
+$                     	per vedere all'interno, per espandere
+
+cat /etc/shells       	elenco shell disponibili
+
+env                   	per visualizzare il proprio ambiente corrente o eseguire un
+                      	comando specificato in un ambiente modificato.
+echo $PATH 	      	  	La variabile d'ambiente PATH contiene il search path usato per i
+                      	comandi (separando le diverse directory con il carattere ‘:’) 
+                      	in cui la shell va a cercare il comando che deve eseguire
+PATH="$PATH:~scripts" 	aggiungere una directory al search path 
+                      	riavviando il terminale e si è tolto
+
+echo $BASH             
+echo $BASH_VERSION
+echo $REPLY
+echo $SHELL
+
+-------------------------------------------------------------------------------------
+$0		      		 	contiene il nome dello script che è stato invocato
+
+$1,$2,$3,...${10},...	contengono in ordine gli argomenti passati dalla linea di
+                      	comando
+
+$#                   	numero di argomenti passati come argc, senza contare il nome 
+		      		 	dello script $0
+                      
+$*                   	lista di tutti gli argomenti passati, senza contare il nome 
+		      		 	dello script $0 
+
+$?                   	contiente l'exit status dell'ultimo comando eseguito dalla shell
+                     	->(!=0,0) echo $? per vedere l'exit status, se facessimo solo $?
+                      	proveremmo ad eseguire il comando (0,127,...) che non esiste
+     
+--------------------------------------------------------------------------------------
+#!/bin/bash     		per indicare esplicitamente nello script qual'è la shell che deve 
+                		essere usata per eseguire lo script
+
+È possibile ottenere l’esecuzione in sequenza in uno script 
+separando i comandi con un’andata a capo 
+oppure con ;
+
+--------------------------------------------------------------------------------------
+nella shell una condizione è rappresentata dall’esecuzione di un programma: 
+exit status $?  = 0 <-> la shell considera VERA  la condizione
+exit status $? != 0 <-> la shell considera FALSA la condizione
+
+
+((espressione))    comando che valuta espressione come un’espressione ARITMETICA del C
+                   produce un exit status che è 0 (VERO) 
+                   se il valore dell’espressione è diverso da 0
+
+
+[[ operatore-unario operando ]]   valuta condizioni che riguardano stringhe o pathname
+[[ op1 operatore-binario op2 ]]   è possibile combinare più condizioni con gli 
+                                  operatori logici !, && e ||
+                                  
+[[ -e pathname ]]     # VERO se ﬁle/directory esiste
+[[ -d pathname ]]     # VERO se pathname indica una directory
+[[ -f pathname ]]     # VERO se pathname indica un  ﬁle
+[[ -r pathname ]]     # VERO se pathname ha il permesso di lettura   per questo utente
+[[ -w pathname ]]     # VERO se pathname ha il permesso di scrittura per questo utente
+[[ -x pathname ]]     # VERO se pathname ha il permesso di esec      per questo utente
+[[ -z stringa ]]      # VERO se la stringa     è vuota
+[[ -n stringa ]]      # VERO se la stringa non è vuota 
+
+[[ file1 -nt file2 ]]     # VERO se ﬁle1 è più nuovo di ﬁle2
+[[ file1 -ot file2 ]]     # VERO se ﬁle1 è più vecchio di ﬁle2
+[[ str1 == str2 ]]        # VERO se str1 è uguale a    str2
+[[ str1 != str2 ]]        # VERO se str1 è diversa da  str2
+[[ str1 < str2 ]]         # VERO se str1 è minore di   str2 (ordine lessicograﬁco)
+[[ str1 > str2 ]]         # VERO se str1 è maggiore di str2
+
+== e != riconoscono come speciali i caratteri ? e * solo in str2
+
+
+corrisponde a qualsiasi stringa che contiene almeno
+*[[:upper:]]*		un carattere maiuscolo
+*[[:lower:]]*  		un carattere minuscolo
+*[[:digit:]]* 		un carattere numerico
+*[[:alpha:]]* 		un carattere alfabetico
+*[[:alnum:]]* 		un carattere alfanumerico
+*[[:space:]]* 		uno spazio
+*[[:punct:]]* 		un carattere di punteggiatura
+
+
+---------ESEMPI---------
+var="Pinco Pallino";
+[[ $var == "Pinco Pallino" ]];	echo $?   -> 0 perchè la shell considera VERA la cond
+[[ $var == Pinco\ Pall* ]];    	echo $?   -> 0
+[[ $var == "Pinco P*" ]];      	echo $?   -> 1 perchè * viene quotato
+[[ $var == *[[:upper:]]* ]];   	echo $?   -> 0
+[[ $var == *[[:digit:]]* ]];   	echo $?   -> 1 perchè non c'è un car numerico in var
+
+--------------------------------------------------------------------------------------
+if comando_condizione_1; then
+	comando ...
+elif comando_condizione_2; then
+	comando ...
+...
+elif comando_condizione_N; then
+	comando ...
+else
+	comando ...
+fi
+
+--------------------------------------------------------------------------------------
+while comando_condizione; do
+	comando ...
+done
+
+
+while read row; do             	La read inserisce nella variabile row il RIGO del
+	comando ...	  	    		file $1 ad ogni iterazione, dal primo all'ultimo
+done <$1 >$2      		    	e poi l'output del while lo inserisce in $2
+
+--------------------------------------------------------------------------------------
+for var in arg ...; do          Esegue il corpo del ciclo assegnando la variabile a
+        comando ...             ciascuno degli argomenti dopo in
+done                            il for mette in var ogni STRINGA di arg e non ogni
+				rigo 
+
+for var in arg ...; do     
+        comando ...             
+done >$2
+--------------------------------------------------------------------------------------
+$(comando)              la shell espande eseguendo il comando e "cattura" il suo
+						output, il quale può essere usato per costruire gli argomenti
+						di un altro comando
+                        
+currdir=$(pwd); echo "La directory corrente è $currdir"
+
+--------------------------------------------------------------------------------------
+Se un comando è terminato con il modificatore &, il processo che viene creato diventa
+un processo in background
+La shell non aspetta la sua terminazione prima di passare al comando successivo
+I caratteri digitati dall’utente al terminale non vanno nello stdin del processo
+Il processo non viene terminato se viene chiuso il terminale
+
+--------------------------------------------------------------------------------------

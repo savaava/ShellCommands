@@ -46,10 +46,27 @@ git push
 git pull
 
 
-git reset
+git reset								
+
+----------------------------------------------------------------------------------------------------
+BRANCH
+git branch "branch-aux"					genera un branch alternativo rispetto al branch master (main) 
+
+git branch -a							per visualizzare tutti i branch in corso
+
+git checkout "branch-aux" 				switch repo's branch in local
+
+git checkout -b "branch-aux"			generate and swith branch
+
+git checkout main
+git merge "branch-aux"					per combinare il lavoro del "branch-aux" con quello master
+										si potrà vedere il "branch-aux" nel grafico ma non è più utilizzabile
+										previo utilizzo di git revert(???)
+
+git push "branch-aux"					per pushare il lavoro solo del branch senza ricongiungersi col main
 
 
-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 ERRORE 1 
 error: object file .git/objects/31/65...b0 is empty
 fatal: loose object 31...b0 (stored in .git/objects/31/65...b0) is corrupt
@@ -69,7 +86,7 @@ git fsck --full        -> verrà eseguito un controllo completo dell'archivio og
 			  in cui si trovavano, prendendoli dal pc che non ha problemi,
 			  in cui tali file non saranno corrotti.
 
---------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 ERRORE 2
 error: Pulling is not possible because you have unmerged files.
 git rebase --skip      -> salta semplicemente l’intero commit che sta causando il

@@ -63,7 +63,8 @@ git merge "branch-aux"					per combinare il lavoro del "branch-aux" con quello m
 										si potrà vedere il "branch-aux" nel grafico ma non è più utilizzabile
 										previo utilizzo di git revert(???)
 
-git push "branch-aux"					per pushare il lavoro solo del branch senza ricongiungersi col main
+git checkout "branch-aux" 
+git push								per pushare il lavoro solo del branch senza ricongiungersi col main
 
 
 ----------------------------------------------------------------------------------------------------

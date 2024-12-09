@@ -50,9 +50,13 @@ git reset
 
 ----------------------------------------------------------------------------------------------------
 BRANCH
-git branch "branch-aux"					genera un branch alternativo rispetto al branch master (main) 
+git branch "branch-aux"					genera un branch alternativo in locale rispetto al branch master (main) 
 
 git branch -a							per visualizzare tutti i branch in corso
+
+git push --set-upstream origin "branchName"
+Quando il branch locale non è ancora associato a un branch remoto,
+Carica il branch locale sul repository remoto (origin) con lo stesso nome (branchName)
 
 git checkout "branch-aux" 				switch repo's branch in local
 

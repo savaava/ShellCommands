@@ -25,9 +25,69 @@ git add <file>...						aggiunge i file nella staging area
 
 
 git commit -m "text"					commit dei file inseriti nella staging area
-git commit -a -m "text"					(-a = all) (-m = message) skip staging area
 
 
+git push
+
+
+git pull
+
+git log 								Display the commit history of a repository
+git log --oneline						Gives just one line per commit showing:
+										- first seven characters of the commit hash (needed to reset command)
+										- the commit message
+git log --stat							
+
+git reset								
+
+----------------------------------------------------------------------------------------------------
+git branch "NOME-BRANCH"				genera un branch alternativo in locale rispetto al branch master (main) 
+
+git branch -a							per visualizzare tutti i branch in corso
+
+git push --set-upstream origin "NOME-BRANCH"
+Quando il branch locale non è ancora associato a un branch remoto,
+Carica il branch locale sul repository remoto (origin) con lo stesso nome (branchName)
+
+git checkout "NOME-BRANCH" 				switch repo's branch in local
+
+git checkout -b "NOME-BRANCH"			generate and swith branch
+
+git push								E' possibile pushare il lavoro solo nel branch ausiliare 
+										senza ricongiungersi col main
+
+git checkout main;
+git merge "NOME-BRANCH"					Per combinare il lavoro del "NOME-BRANCH" con quello main, risolvendo
+										eventuali conflitti.
+										Si potrà vedere il "NOME-BRANCH" nel grafico.
+										Potrà ancora essere utilizzato perchè non viene eliminato automaticamente.
+
+In fase di eliminazione del branch se questo ha ancora delle modifiche che non sono state mergiate dal main
+potrebbero perdersi. Quindi assicurati di effettuare prima la merge dal main con il branch ausiliare.
+
+git branch -d "NOME-BRANCH"				per eliminare il branch solo in locale
+
+git push --delete origin aux 			per eliminare il branch anche in remoto
+
+----------------------------------------------------------------------------------------------------
+git stash								Salva le modifiche tracked in un buffer, dove si conservano 
+										i cambiamenti senza doverli pushare in remoto.
+										I file Untracked non si possono inserire nello stash
+git stash save "messaggio"
+git stash list							restituisce un elenco delle tue istantanee salvate nel formato
+										stash@{0}: "branch dove è stato fatto": MESSAGGIO
+
+git stash show "NOME-STASH"
+git stash show -p "NOME-STASH"
+
+git stash apply "NOME-STASH"
+git stash pop "NOME-STASH"
+
+git stash drop "NOME-STASH"
+git stash clear
+
+----------------------------------------------------------------------------------------------------
+ALTRO
 git ls-files							elenca tutti i file che sono attualmente 
 										tracciati nel tuo repository
 
@@ -38,63 +98,4 @@ git rm <file>...						rimuove i file e non c'è bisogno di fare git
 
 git mv <OldName_file> <NewName_file>	rinomina il file <OldName_file> e non c'è 
 										bisogno di fare git add, pronto per git commit
-
-
-git push
-
-
-git pull
-
-
-git reset								
-
-----------------------------------------------------------------------------------------------------
-BRANCH
-git branch "branch-aux"					genera un branch alternativo in locale rispetto al branch master (main) 
-
-git branch -a							per visualizzare tutti i branch in corso
-
-git push --set-upstream origin "branchName"
-Quando il branch locale non è ancora associato a un branch remoto,
-Carica il branch locale sul repository remoto (origin) con lo stesso nome (branchName)
-
-git checkout "branch-aux" 				switch repo's branch in local
-
-git checkout -b "branch-aux"			generate and swith branch
-
-git checkout main
-git merge "branch-aux"					per combinare il lavoro del "branch-aux" con quello master
-										si potrà vedere il "branch-aux" nel grafico ma non è più utilizzabile
-										previo utilizzo di git revert(???)
-
-git checkout "branch-aux" 
-git push								per pushare il lavoro solo del branch senza ricongiungersi col main
-
-
-----------------------------------------------------------------------------------------------------
-ERRORE 1 
-error: object file .git/objects/31/65...b0 is empty
-fatal: loose object 31...b0 (stored in .git/objects/31/65...b0) is corrupt
-
-risoluzione 1:
-find .git/objects/ -type f -empty | xargs rm  -> verranno prima rimossi tutti i file 
-						 oggetto vuoti che causano il 
-						 danneggiamento dell'archivio nel suo 
-						 complesso
-git fetch -p	       -> verranno recuperati gli oggetti mancanti
-git fsck --full        -> verrà eseguito un controllo completo dell'archivio oggetti
-
-risoluzione 2:
-git fsck --full        -> verrà eseguito un controllo completo dell'archivio oggetti,
-			  così individuo i file corrotti, ricordo dove si trovano
-			  e li elimino. Adesso devo ricaricarli nell'esatta posizione
-			  in cui si trovavano, prendendoli dal pc che non ha problemi,
-			  in cui tali file non saranno corrotti.
-
---------------------------------------------------------------------------------------------------
-ERRORE 2
-error: Pulling is not possible because you have unmerged files.
-git rebase --skip      -> salta semplicemente l’intero commit che sta causando il
-			  conflitto. Saltare un commit potrebbe comportare la perdita
-			  di alcune modifiche
 

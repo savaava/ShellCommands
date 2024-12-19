@@ -67,7 +67,7 @@ potrebbero perdersi. Quindi assicurati di effettuare prima la merge dal main con
 
 git branch -d "NOME-BRANCH"				per eliminare il branch solo in locale
 
-git push --delete origin aux 			per eliminare il branch anche in remoto
+git push --delete origin "NOME-BRANCH"  per eliminare il branch anche in remoto
 
 ----------------------------------------------------------------------------------------------------
 git stash								Salva le modifiche tracked in un buffer, dove si conservano 

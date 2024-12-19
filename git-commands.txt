@@ -4,39 +4,45 @@ git config --system --list
 git config --local --list
 git config --get <nome_config>
 
+----------------------------------------------------------------------------------------------------
+La repository in remoto (su GitHub, GitLab, o un altro server Git) deve essere già creata sul sito.
 
-git init				crea una repository nella curr_dir (crea la sottodir .git)
+git init								Inizializza una nuova repository Git in locale (crea la sottodir .git)
+										Si parte da 0 ed è possibile solo lavorare in locale (git add, git commit).
+
+git remote add origin "URL-remoto"		Collega la repo locale con una remota già esistente
+
+git remote -v							
 
 
-git status				mostra i commits in corso, 
-						i file in rosso ancora da aggiungere nella staging area, 
-						i file in verde aggiunti nella staging area,
-						i file in rosso eliminati dalla staging area,
-						i file in rosso modificati rispetto a quelli attualmente nella staging area già aggiunti,
-						i file in verde rinominati nello staging area
+git clone "URL-remoto"					Copia completamente la repo remota, inclusi i file e la cronologia
+
+----------------------------------------------------------------------------------------------------
+git status
+
+
+git add <file>...						aggiunge i file nella staging area
+
+git commit -m "message"					commit dei file inseriti nella staging area
+
+git commit -a -m "message"				Aggiunge automaticamente alla staging area tutti i file tracciati
+										(cioè quelli che Git sta già monitorando) modificati o eliminati.
+										Non include i file Untracked, che richiedono comunque git add.
+
+git push
 
 
 git fetch								only copies changes into your local Git repo,
 										but doesn't copy changes from the remote repo
 										directly into the working directory like pull
 
-
-git add <file>...						aggiunge i file nella staging area
-
-
-git commit -m "text"					commit dei file inseriti nella staging area
-
-
-git push
-
-
 git pull
 
-
-git log 								Display the commit history of a repository
-git log --oneline						Gives just one line per commit showing:
-										- first seven characters of the commit hash (needed to reset command)
-										- the commit message
+----------------------------------------------------------------------------------------------------
+git log 								Mostra la cronologia dei commit del repo
+git log --oneline						Fornisce una sola linea per commit, mostrando:
+										- primi 7 caratteri del commit hash
+										- commit message
 git log --stat							
 
 
@@ -49,7 +55,8 @@ git reset --hard "commithash"			Resetta la repo al commit specificato con "commi
 										e quindi si torna allo stato iniziale del commit.
 
 
-git revert 
+git revert "commithash"					Crea un nuovo commit che annulla le modifiche fatte nel commit specificato.
+										A differenza di reset la cronologia non viene alterata.
 
 ----------------------------------------------------------------------------------------------------
 git branch "NOME-BRANCH"				genera un branch alternativo in locale rispetto al branch master (main) 
@@ -86,7 +93,8 @@ git push --delete origin "NOME-BRANCH"  per eliminare il branch anche in remoto
 git stash								Salva le modifiche tracked in un buffer, dove si conservano 
 										i cambiamenti senza doverli pushare in remoto.
 										I file Untracked non si possono inserire nello stash
-git stash save "messaggio"
+git stash save "messaggio"				Salva le modifiche assegnandogli un nome
+
 git stash list							restituisce un elenco delle tue istantanee salvate nel formato
 										stash@{0}: "branch dove è stato fatto": MESSAGGIO
 
@@ -96,8 +104,8 @@ git stash show -p "NOME-STASH"
 git stash apply "NOME-STASH"
 git stash pop "NOME-STASH"
 
-git stash drop "NOME-STASH"
-git stash clear
+git stash drop "NOME-STASH"				Elimina dallo stash un salvataggio specificato.
+git stash clear							Elimina dallo stash tutti i salvataggi.
 
 ----------------------------------------------------------------------------------------------------
 ALTRO

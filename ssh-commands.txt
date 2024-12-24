@@ -101,9 +101,12 @@ netstat -nob | cat -n | grep ":22"
 #-------------------------------------------------------------------------------------------------------------------
 ssh <domain|username>@<servername>
 # to connect to OpenSSH Server from a Windows or Windows Server device with the OpenSSH client installed
-# servername can be an alias or an IP address
+# username: nome del tuo account sul remoto (non è il nome del pc o della macchina)
+# servername can be an alias or IP address
 
-ssh username@hostname -p portnumber
+# sulla macchina remota, eseguire da PowerShell
+# $env:USERNAME -> per ottenere username
+# ipconfig      -> per ottenere servername
 
 Get-PSDrive -PSProvider FileSystem
 # NON si può eseguire da remoto
@@ -117,7 +120,6 @@ wmic logicaldisk get name
 # un'altra unità (una partizione di un disco o proprio un altro disco) (C: D: E: V:) si usa il comando:cd 
 cd /d X:
 # (/d = "drive") X è l'unità specificata presente nel sistema remoto a cui mi sono collegato
-
 
 exit
 # to close the connection to remote servername

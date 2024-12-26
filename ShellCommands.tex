@@ -1,0 +1,62 @@
+\documentclass[12pt, a4paper]{article}
+
+% ******************************** PACKAGES ********************************
+\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true]{hyperref}
+\pagestyle{fancy}
+
+% ******************************** SETUP ********************************
+\lstset{
+	basicstyle=\ttfamily\color{black}, % Testo principale in nero
+	commentstyle=\color{green!50!black}, % Commenti in verde scuro
+	stringstyle=\color{blue!70!black}, % Stringhe in blu scuro
+	backgroundcolor=\color{gray!15}, % Sfondo grigio chiaro
+	frame=single, % Cornice attorno al codice
+	numbers=left, % Numeri di linea a sinistra
+	numberstyle=\small\color{gray!70}, % Numeri in grigio tenue
+	%breaklines=true, % Spezza le righe troppo lunghe
+	tabsize=1, % Dimensione del tab	
+	keywordstyle=\color{red!70!black}\bfseries, % Parole chiave in rosso scuro e grassetto
+}
+
+\newcommand{\disablelinkcolor}{%
+	\hypersetup{linkcolor=black}%
+}
+\newcommand{\enablelinkcolor}{
+	\hypersetup{
+		%hidelinks,
+		linkcolor=blue
+		%linkbordercolor=blue,
+		%pdfborderstyle={/S/U/W 1} % Bordo sottolineato (stile underline)
+	}
+}
+
+% ******************************** MAIN PAGE INFO ********************************
+\title{Comandi in Shell}
+\author{Andrea Savastano}
+\date{\today}
+
+% ******************************** DOCUMENTO ********************************
+\begin{document}	
+	% Configurazione dell'intestazione
+	\fancyhf{} % Resetta intestazioni e piè di pagina
+	\fancyhead[L]{\nouppercase{\leftmark}} % Testata sinistra: sezione corrente
+	\fancyhead[R]{page \thepage} % Testata destra: numero di pagina
+	
+	\maketitle
+	\disablelinkcolor
+	\tableofcontents
+	\newpage
+	
+	\section{Commandi git}
+	\input{git-commands.tex}
+	
+	\newpage
+	\section{Comandi ssh}
+	\input{ssh-commands.tex}
+	
+\end{document}

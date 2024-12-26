@@ -18,12 +18,12 @@ Get-Service -Name sshd
 # Per verificare se il servizio OpenSSH è attivo
 
 
-Start-Service -Name sshd
-# Start the sshd service
+Start-Service -Name sshd (net start sshd)
+# Start the sshd service (bash command)
 
 
-Stop-Service -Name sshd
-# Stop the sshd service
+Stop-Service -Name sshd (net stop sshd)
+# Stop the sshd service (bash command)
 
 
 Set-Service -Name sshd -StartupType 'Automatic'

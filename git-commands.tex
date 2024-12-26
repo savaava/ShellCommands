@@ -1,25 +1,55 @@
 \subsection*{Introduzione}
 \addcontentsline{toc}{subsection}{Introduzione}
 Questa sezione presenta un elenco di comandi git per gestire la propria repository in locale e per interagire con la repository in remoto sul server GitHub.\vspace{.3cm}\\
-Si utilizza la shell \texttt{GitBash} perche è più simile a quella di \texttt{Linux}, in alternativa si può usare \texttt{PowerShell} o \texttt{cmd} di \texttt{Windows} che invece richiedono i comandi nativi di \texttt{Windows}.
+Si utilizza la shell \texttt{GitBash} perche è più simile a quella di \texttt{Linux}, in alternativa si può usare \texttt{PowerShell} o \texttt{cmd} di \texttt{Windows} che invece richiedono i comandi nativi di \texttt{Windows}.\vspace{.3cm}\\
+E' possibile avere una repository git su un qualsiasi path (sul Desktop).\\
+Una cartella si definisce repository git in locale al dispositivo quando è presente la sottocartella nascosta \texttt{.git}, che consente di usare i relativi comandi.\\
+La repository in locale è diversa da quella che si ha su un server remoto ad esempio su GitHub, ed è possibile collegarle in modo che le modifiche (aggiunte o rimozioni di file) effettuate nella repository locale vengano caricate sul server, ossia sulla rispettiva repository remota.
 
 
 \subsection{Inizializzazione della repository}
+Se si desidera collegare la repository locale ad una remota, allora assicurarsi di aver creato prima la repository in remoto su GitHub (\url{https://github.com/new}) e di averne prelevato l'\texttt{\color{blue!70!black}"URL-remoto"}, che può essere HTTPS o SSH.
+
+\subsubsection{git clone}
+\begin{lstlisting}[language=bash]
+	git clone "URL-remoto"
+\end{lstlisting}
+Clona la repository remota specificata dall'URL nel percorso in cui è stato eseguito il comando, creando una nuova cartella con lo stesso nome del remoto e aggiornata con gli stessi dati.
+Crea quindi una repository locale (\texttt{.git}), collegandola direttamente a quella remota.\\
+In particolare si crea un branch \texttt{main} in locale che è collegato a quello remoto \texttt{remotes/origin/main}.\\
+E' un comando molto più comodo e veloce per la creazione e il collegamento della repository, ma in alternativa si possono usare i comandi \texttt{git init} e \texttt{git remote}.
+
+\subsubsection{git init}
 \begin{lstlisting}[language=bash]
 	git init
 \end{lstlisting}
-Inizializza la cartella in cui si esegue il comando come una nuova repository Git in locale, creando la sottocartella nascosta \texttt{.git} che garantisce l'utilizzo dei comandi git.\\
-E' possibile lavorare solo in locale (tramite comandi come \texttt{git add}, \texttt{git commit}, \dots), in quanto la repository locale non è stata collegata a nessuna repository in un server remoto, che può essere GitHub.\\
+Inizializza la cartella in cui si esegue il comando come una nuova repository in locale (\texttt{.git}).\\
+E' possibile lavorare solo in locale (tramite comandi come \texttt{git add}, \texttt{git commit}, \dots), in quanto la repository locale non è stata collegata a nessuna repository in un server remoto.
 
+\subsubsection{git remote}
 \begin{lstlisting}[language=bash]
 	git remote add origin "URL-remoto"
 \end{lstlisting}
-Collega la repository locale creata con \texttt{git init} con una remota già esistente.\\ Assicurarsi di aver creato correttamente la repository in remoto su GitHub e di averne prelevato l'\texttt{\color{blue!70!black}"URL-remoto"}.
-In seguito a questo passaggio si ha che la repository in locale è collegata ad una in remoto, e di default vi sono due branch legati:
-\begin{itemize}[noitemsep, topsep=0pt]
-	\item \texttt{main} -> nella repository locale
-	\item \texttt{remotes/origin/main} -> nella repository remota
-\end{itemize}
+Collega la repository locale creata con \texttt{git init} con una remota già esistente.\\
+In seguito a questo passaggio si ha che la repository in locale è collegata ad una nuova in remoto.\\
+
+\begin{lstlisting}[language=bash]
+	git remote set-url origin "URL-remoto"
+\end{lstlisting}
+Collega la repository locale ad un altro repository remoto, modificando l'URL del remoto esistente.\\
+Questo può servire quando si vuole collegare il repository locale a quello remoto con l'URL SSH, sostituendolo a quello HTTPS, o viceversa.\\
+Oppure può servire per sostituire l'URL vecchio del repository remoto con uno nuovo, perchè è stato eventualmente cambiato.\\
+
+\begin{lstlisting}[language=bash]
+	git remote -v
+\end{lstlisting}
+Mostra l'elenco dei repository remoti associati al repository locale, insieme agli URL per \texttt{fetch} e \texttt{push}.
+\begin{lstlisting}[language=bash]
+	# output:
+	origin  https://github.com/savaava/ShellCommands.git (fetch)
+	origin  https://github.com/savaava/ShellCommands.git (push)
+\end{lstlisting}
+Il nome dei repository remoti è di default \texttt{origin} e viene mostrato il repository remoto, tramite il suo URL, da cui si prelevano le commit (fetch) e quello su cui si caricano le commit (push).
 
 
 \subsection{Aggiunta/caricamento}

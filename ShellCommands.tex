@@ -1,13 +1,12 @@
 \documentclass[12pt, a4paper]{article}
 
 % ******************************** PACKAGES ********************************
-\usepackage[top=2cm, bottom=2cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage[top=2cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
-\usepackage[colorlinks=true]{hyperref}
-\pagestyle{fancy}
+\usepackage[colorlinks=true, urlcolor=blue!70!black]{hyperref}
 
 % ******************************** SETUP ********************************
 \lstset{
@@ -18,23 +17,24 @@
 	frame=single, % Cornice attorno al codice
 	numbers=left, % Numeri di linea a sinistra
 	numberstyle=\small\color{gray!70}, % Numeri in grigio tenue
-	%breaklines=true, % Spezza le righe troppo lunghe
 	showstringspaces=false,
-	tabsize=1, % Dimensione del tab	
-	keywordstyle=\color{red!70!black}\bfseries, % Parole chiave in rosso scuro e grassetto
+	tabsize=1, % Dimensione del tab
 }
 
-\newcommand{\disablelinkcolor}{%
-	\hypersetup{linkcolor=black}%
+\newcommand{\disablelinkcolor}{
+	\hypersetup{linkcolor=black}
 }
 \newcommand{\enablelinkcolor}{
 	\hypersetup{
-		%hidelinks,
 		linkcolor=blue
-		%linkbordercolor=blue,
-		%pdfborderstyle={/S/U/W 1} % Bordo sottolineato (stile underline)
 	}
 }
+
+\pagestyle{fancy} % Imposta lo stile predefinito del documento
+\fancyhf{} % Pulisce intestazioni e piè di pagina
+\fancyhead[L]{\nouppercase{\leftmark}} % Testata sinistra: sezione corrente
+\fancyhead[R]{page \thepage} % Testata destra: numero di pagina
+\fancyfoot[R]{\textit{\textbf{Andrea Savastano}}} % Piè di pagina a destra con il tuo nome
 
 % ******************************** MAIN PAGE INFO ********************************
 \title{Comandi in Shell}
@@ -43,11 +43,6 @@
 
 % ******************************** DOCUMENTO ********************************
 \begin{document}	
-	% Configurazione dell'intestazione
-	\fancyhf{} % Resetta intestazioni e piè di pagina
-	\fancyhead[L]{\nouppercase{\leftmark}} % Testata sinistra: sezione corrente
-	\fancyhead[R]{page \thepage} % Testata destra: numero di pagina
-	
 	\maketitle
 	\disablelinkcolor
 	\tableofcontents

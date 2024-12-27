@@ -53,8 +53,57 @@ Il nome dei repository remoti è di default \texttt{origin} e viene mostrato il 
 
 
 \subsection{Aggiunta/caricamento}
+Quando si aggiorna la repository locale, aggiungendo/eliminando/modificando un file, è possibile effettuare una commit, la quale carica le modifiche in locale. Per aggiornare anche la repository remota a cui è collegata quella locale si deve effettuare una push della commit.\\
+Pertanto, dopo aver aggiornato la repository locale, i passaggi da seguire sono 3:
+\begin{center}
+\begin{minipage}{0.5\textwidth}
+\begin{tcolorbox}[left=0cm, colframe=red!50!gray]
+\begin{enumerate}[noitemsep, topsep=0pt]
+	\item \texttt{git add}
+	\item \texttt{git commit}
+	\item \texttt{git push}
+\end{enumerate}
+\end{tcolorbox}
+\end{minipage}
+\end{center}
+E' importante monitorare sempre lo stato della repository con \texttt{git status}, per tenere traccia dei cambiamenti in corso d'opera.
+
+\subsubsection{git status}
+\begin{lstlisting}[language=bash]
+	git status
+\end{lstlisting}
+Mostra lo stato della repository locale, specificando i file che sono stati aggiunti, modificati o eliminati.\\
+Il comando in esame fornisce informazioni anche sui file che la repo sta monitorando:
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item I file \textbf{\color{red}Untracked} non sono ancora monitorati da Git (non aggiunti con \texttt{git add}), quindi sono i file aggiunti e non ancora caricati nella repo per la prima volta;
+	\item I file \textbf{Tracked} sono già sotto il controllo di Git, quindi sono i file già caricati precedentemente nella repository, e possono essere \textbf{Unmodified}, \textbf{\color{red}Modified} o \textbf{\color{red}Deleted}.
+\end{itemize}
+I file Untracked, Modified e Deleted sono colorati in rosso quando non sono stati ancora aggiunti alla Staging area con \texttt{git add}. Una volta aggiunti saranno verdi.
+
+\subsubsection{git add}
+a
+\subsubsection{git commit}
+\subsubsection{git push}
+\subsubsection{git fetch}
+\subsubsection{git pull}
+
+
 \subsection{Ripristinare commit}
+
+
+
 \subsection{Branch}
+
+
+
 \subsection{Stash}
+
+
+
 \subsection{Altri}
+
+
+
 \subsection{Configurazione}
+
+

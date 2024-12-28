@@ -4,9 +4,9 @@ Questa sezione presenta un elenco di comandi git per gestire la propria reposito
 Si utilizza la shell \texttt{GitBash} perche è più simile a quella di \texttt{Linux}, in alternativa si può usare \texttt{PowerShell} o \texttt{cmd} di \texttt{Windows} che invece richiedono i comandi nativi di \texttt{Windows}.\vspace{.3cm}\\
 E' possibile avere una repository git su un qualsiasi path (sul Desktop).\\
 Una cartella si definisce repository git in locale al dispositivo quando è presente la sottocartella nascosta \texttt{.git}, che consente di usare i relativi comandi.\\
-La repository in locale è diversa da quella che si ha su un server remoto ad esempio su GitHub, ed è possibile collegarle in modo che le modifiche (aggiunte o rimozioni di file) effettuate nella repository locale vengano caricate sul server, ossia sulla rispettiva repository remota.
+La repository in locale è diversa da quella che si ha su un server remoto ad esempio su GitHub, ed è possibile collegarle in modo che le modifiche (aggiunte o rimozioni di file) effettuate nella repository locale vengano caricate sul server, ossia sulla rispettiva repository remota.\\
 
-
+\hrule
 \subsection{Inizializzazione della repository}
 Se si desidera collegare la repository locale ad una remota, allora assicurarsi di aver creato prima la repository in remoto su GitHub (\url{https://github.com/new}) e di averne prelevato l'\texttt{\color{blue!70!black}"URL-remoto"}, che può essere HTTPS o SSH.
 
@@ -49,14 +49,13 @@ Mostra l'elenco dei repository remoti associati al repository locale, insieme ag
 	origin  https://github.com/savaava/ShellCommands.git (fetch)
 	origin  https://github.com/savaava/ShellCommands.git (push)
 \end{lstlisting}
-Il nome dei repository remoti è di default \texttt{origin} e viene mostrato il repository remoto, tramite il suo URL, da cui si prelevano le commit (fetch) e quello su cui si caricano le commit (push).
+Il nome dei repository remoti è di default \texttt{origin} e viene mostrato il repository remoto, tramite il suo URL, da cui si prelevano le commit (fetch) e quello su cui si caricano le commit (push).\\
 
-
+\hrule
 \subsection{Aggiunta/caricamento}
-Quando si aggiorna la repository locale, aggiungendo/eliminando/modificando un file, è possibile effettuare una commit, la quale carica le modifiche in locale. Per aggiornare anche la repository remota a cui è collegata quella locale si deve effettuare una push della commit.\\
+Quando si aggiorna la repository locale, quindi la working directory, aggiungendo/eliminando/modificando un file, è possibile effettuare una commit, la quale carica le modifiche in locale. Per aggiornare anche la repository remota a cui è collegata quella locale si deve effettuare una push della commit.\vspace{.2cm}\\
+\begin{minipage}{0.48\textwidth}
 Pertanto, dopo aver aggiornato la repository locale, i passaggi da seguire sono 3:
-\begin{center}
-\begin{minipage}{0.5\textwidth}
 \begin{tcolorbox}[left=0cm, colframe=red!50!gray]
 \begin{enumerate}[noitemsep, topsep=0pt]
 	\item \texttt{git add}
@@ -64,8 +63,14 @@ Pertanto, dopo aver aggiornato la repository locale, i passaggi da seguire sono 
 	\item \texttt{git push}
 \end{enumerate}
 \end{tcolorbox}
+I comandi si approfondiscono ai paragrafi successivi.
 \end{minipage}
-\end{center}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\begin{adjustbox}{width=0.48\paperwidth,center}
+\input{auxFiles/areasGit.tex}
+\end{adjustbox}
+\end{minipage}\vspace{.2cm}\\
 E' importante monitorare sempre lo stato della repository con \texttt{git status}, per tenere traccia dei cambiamenti in corso d'opera.
 
 \subsubsection{git status}
@@ -75,24 +80,150 @@ E' importante monitorare sempre lo stato della repository con \texttt{git status
 Mostra lo stato della repository locale, specificando i file che sono stati aggiunti, modificati o eliminati.\\
 Il comando in esame fornisce informazioni anche sui file che la repo sta monitorando:
 \begin{itemize}[noitemsep, topsep=3pt]
-	\item I file \textbf{\color{red}Untracked} non sono ancora monitorati da Git (non aggiunti con \texttt{git add}), quindi sono i file aggiunti e non ancora caricati nella repo per la prima volta;
-	\item I file \textbf{Tracked} sono già sotto il controllo di Git, quindi sono i file già caricati precedentemente nella repository, e possono essere \textbf{Unmodified}, \textbf{\color{red}Modified} o \textbf{\color{red}Deleted}.
+	\item I file \textbf{Untracked} non sono ancora monitorati da Git (non aggiunti con \texttt{git add}), quindi sono i file aggiunti e non ancora caricati nella repo per la prima volta;
+	\item I file \textbf{Tracked} sono già sotto il controllo di Git, quindi sono i file già caricati precedentemente nella repository, e possono essere \textbf{Unmodified}, \textbf{Modified} o \textbf{Deleted}.
 \end{itemize}
-I file Untracked, Modified e Deleted sono colorati in rosso quando non sono stati ancora aggiunti alla Staging area con \texttt{git add}. Una volta aggiunti saranno verdi.
+I file Untracked, Modified e Deleted sono colorati in rosso nel terminale quando non sono stati ancora aggiunti alla staging area con \texttt{git add}. Una volta aggiunti saranno verdi.\\
+\begin{lstlisting}[language=bash]
+	# Output quando non sono state apportate modifiche:
+	On branch main
+	Your branch is up to date with 'origin/main'.
+	
+	nothing to commit, working tree clean
+\end{lstlisting}
+In questo caso la repository in locale è sul branch \texttt{main} come suggerisce la riga 2, ed è collegato al branch remoto \texttt{origin/main} e sono entrambi aggiornati con gli stessi dati come suggerisce la riga 3.\\
+La riga 5 suggerisce che non vi sono modifiche aggiunte alla staging area per cui non c'è nulla da committare.
+\begin{lstlisting}
+	||# Output quando e' stato creato, modificato ed eliminato un file:||
+	On branch main
+	Your branch is up to date with 'origin/main'.
+	
+	Changes not staged for commit:
+		@@deleted:    file.txt@@
+		@@modified:   file2.txt@@
+	
+	Untracked files:  
+		@@fileProva.sh@@
+	
+	no changes added to commit
+\end{lstlisting}
+
 
 \subsubsection{git add}
-a
+\begin{lstlisting}[language=bash]
+	git add <file>...
+	git add .
+\end{lstlisting}
+Aggiunge alla staging area i file specificati, che sono stati creati, modificati o eliminati.\\
+Quindi il comando aggiunge alla staging area le modifiche apportate alla repository rispetto alla versione precedente.\\
+E' efficace utilizzare direttamente \texttt{git add .} perchè aggiunge velocemente alla staging area tutte le modifiche apportate alla working directory, quindi tutti i file aggiunti (Untracked), tutti i file modificati (Modified) e tutti i file eliminati (Deleted).\vspace{.3cm}\\
+Rispetto all'esempio sopra proposto che prevede tre modifiche alla repo, eseguiamo \texttt{git add .} per aggiunge tali modifiche alla staging area e analizziamo lo stato della repo tramite \texttt{git status}:
+\begin{lstlisting}
+	On branch main
+	Your branch is up to date with 'origin/main'.      
+	
+	Changes to be committed:
+		||deleted:    file.txt
+		modified:   file2.txt
+		new file:   fileProva.sh||
+\end{lstlisting}
+Si noti che ora le tre modifiche sono nella staging area e pronte per essere committate.
+
+\newpage
 \subsubsection{git commit}
+\begin{lstlisting}[language=bash]
+	git commit -m "message"
+\end{lstlisting}
+Aggiunge le modifiche presenti nella staging area nella repository git locale e non in remoto.\\
+In questo modo la repo locale e quella remota non sono più aggiornate con gli stessi dati e si può effettuare una push della/delle commit in sospeso.\\
+E' necessario inserire sempre una stringa non vuota come messaggio. Questa può risultare utile per tracciare le modifiche in corso d'opera apportate alla repository e per questo è utile scrivere un messaggio rappresentativo della commit.
+\begin{lstlisting}[language=bash]
+	git commit -am "message"
+\end{lstlisting}
+Aggiungendo l'opzione \texttt{-a} è possibile saltare la staging area e aggiungere le modifiche direttamente alla repository locale come commit. Tuttavia non è in grado di aggiungere alla commit i file Untracked, i quali devono necessariamente passare per la staging area (\texttt{git add .}).\\
+\begin{lstlisting}[language=bash]
+	# Stato della repo quando e' stata effettuata una sola commit: 
+	On branch main
+	Your branch is ahead of 'origin/main' by 1 commit.
+	
+	nothing to commit, working tree clean
+\end{lstlisting}
+
 \subsubsection{git push}
+\begin{lstlisting}[language=bash]
+	git push
+\end{lstlisting}
+Carica le commit sulla repository remota a cui è collegata quella locale.\\
+Di default la repository locale è sul branch \texttt{main} e \texttt{git push} carica le commit sul branch remoto \texttt{origin/main}.
+
 \subsubsection{git fetch}
+\begin{lstlisting}[language=bash]
+	git fetch
+\end{lstlisting}
+Preleva le eventuali modifiche della repository remota e le carica in locale, senza aggiornare la working directory.
+
 \subsubsection{git pull}
+\begin{lstlisting}[language=bash]
+	git pull
+\end{lstlisting}
+Preleva le eventuali modifiche della repository remota e le carica in locale, aggiornando la working directory, a differenza di \texttt{git fetch}.\\
 
 
-\subsection{Ripristinare commit}
 
-
-
+\hrule
+\newpage
 \subsection{Branch}
+\nosyllab
+\begin{minipage}{.48\textwidth}
+	I branch (rami) sono una delle potenzialità più rilevanti per Git perchè consentono ai contributori del progetto di lavorare in parallelo sullo stesso progetto che si trova sempre in remoto.\\
+	Un branch diverso da quello \texttt{main} (\texttt{Master} nell'immagine) è una versione del progetto diversa rispetto a quella originale perchè si caricano modifiche sul branch ausiliario e non più sul \texttt{main}.\\
+	Sarà possibile eliminare il branch e perdere eventuali modifiche, oppure effettuare una merge (fusione) con quello \texttt{main} e ricongiungersi al percorso originale.
+\end{minipage}
+\hfil
+\begin{minipage}{.48\textwidth}
+	\includegraphics[width=\textwidth]{images/gitBranches.png}
+	Il branch rosso \texttt{Bugfix} e quello verde \texttt{Feature} sono branch ausiliari che si ricongiungono col \texttt{main}, dopo aver apportato modifiche per cui sono stati creati.
+\end{minipage}
+\syllab
+
+
+
+\subsubsection{git branch}
+\begin{lstlisting}[language=bash]
+	git branch "nome-branch"
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	git branch -a
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	git push --set-upstream origin "nome-branch"
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	git branch -d "nome-branch"
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	git push --delete origin "nome-branch"
+\end{lstlisting}
+
+\subsubsection{git checkout}
+\begin{lstlisting}[language=bash]
+	git checkout "nome-branch" 
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	git checkout -b "nome-branch" 
+\end{lstlisting}
+
+\subsubsection{git diff}
+\begin{lstlisting}[language=bash]
+	git diff "nome-branch" 
+\end{lstlisting}
+
+\subsubsection{git merge}
+\begin{lstlisting}[language=bash]
+	git checkout main;
+	git merge "nome-branch"
+\end{lstlisting}
+
 
 
 
@@ -103,6 +234,7 @@ a
 \subsection{Altri}
 
 
+\subsection{Ripristinare commit}
 
 \subsection{Configurazione}
 

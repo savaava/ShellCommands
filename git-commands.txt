@@ -59,35 +59,35 @@ git revert "commithash"					Crea un nuovo commit che annulla le modifiche fatte 
 										A differenza di reset la cronologia non viene alterata.
 
 ----------------------------------------------------------------------------------------------------
-git branch "NOME-BRANCH"				genera un branch alternativo in locale rispetto al branch master (main) 
+git branch "nome-branch"				genera un branch alternativo in locale rispetto al branch master (main) 
 
 git branch -a							per visualizzare tutti i branch in corso
 
-git push --set-upstream origin "NOME-BRANCH"
+git push --set-upstream origin "nome-branch"
 Quando il branch locale non è ancora associato a un branch remoto,
 Carica il branch locale sul repository remoto (origin) con lo stesso nome (branchName)
 
-git checkout "NOME-BRANCH" 				switch repo's branch in local
+git checkout "nome-branch" 				switch repo's branch in local
 
-git checkout -b "NOME-BRANCH"			generate and swith branch
+git checkout -b "nome-branch"			generate and swith branch
 
 git push								E' possibile pushare il lavoro solo nel branch ausiliare 
 										senza ricongiungersi col main
 
-git diff "NOME-BRANCH"					
+git diff "nome-branch"					
 
 git checkout main;
-git merge "NOME-BRANCH"					Per combinare il lavoro del "NOME-BRANCH" con quello main, risolvendo
+git merge "nome-branch"					Per combinare il lavoro del "nome-branch" con quello main, risolvendo
 										eventuali conflitti.
-										Si potrà vedere il "NOME-BRANCH" nel grafico.
+										Si potrà vedere il "nome-branch" nel grafico.
 										Potrà ancora essere utilizzato perchè non viene eliminato automaticamente.
 
 In fase di eliminazione del branch se questo ha ancora delle modifiche che non sono state mergiate dal main
 potrebbero perdersi. Quindi assicurati di effettuare prima la merge dal main con il branch ausiliare.
 
-git branch -d "NOME-BRANCH"				per eliminare il branch solo in locale
+git branch -d "nome-branch"				per eliminare il branch solo in locale
 
-git push --delete origin "NOME-BRANCH"  per eliminare il branch anche in remoto
+git push --delete origin "nome-branch"  per eliminare il branch anche in remoto
 
 ----------------------------------------------------------------------------------------------------
 git stash								Salva le modifiche tracked in un buffer, dove si conservano 

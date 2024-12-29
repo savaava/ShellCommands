@@ -9,6 +9,7 @@
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage[colorlinks=true, urlcolor=blue!70!black]{hyperref}
+\usepackage{nameref}  % Per stampare il nome delle sezioni
 \usepackage{tcolorbox}
 \usepackage{multicol}
 \usepackage{tikz}
@@ -19,7 +20,7 @@
 % ******************************** SETUP ********************************
 \lstset{
 	basicstyle=\ttfamily, % Testo principale in nero
-	commentstyle=\color{green!60!black}, % Commenti in verde scuro
+	commentstyle=\color{green!40!black}, % Commenti in verde scuro
 	stringstyle=\color{blue!70!black}, % Stringhe in blu scuro
 	backgroundcolor=\color{gray!15}, % Sfondo grigio chiaro
 	frame=single, % Cornice attorno al codice
@@ -28,15 +29,18 @@
 	showstringspaces=false,
 	tabsize=1, % Dimensione del tab
 	moredelim=[is][\color{red}]{@@}{@@}, % @@ delimitatori personalizzati
-	moredelim=[is][\color{green!60!black}]{||}{||}
+	moredelim=[is][\color{green!60!black}]{||}{||},
+	moredelim=[is][\color{green!40!black}]{!!}{!!},
+	moredelim=[is][\color{blue}]{££}{££}
 }
+
 
 \newcommand{\disablelinkcolor}{
 	\hypersetup{linkcolor=black}
 }
 \newcommand{\enablelinkcolor}{
 	\hypersetup{
-		linkcolor=blue
+		linkcolor=blue,          % Colore dei link interni
 	}
 }
 
@@ -55,7 +59,7 @@
 \pagestyle{fancy} % Imposta lo stile predefinito del documento
 \fancyhf{} % Pulisce intestazioni e piè di pagina
 \fancyhead[L]{\nouppercase{\leftmark}} % Testata sinistra: sezione corrente
-\fancyhead[R]{page \thepage\ of \pageref{LastPage}} % Testata destra: numero di pagina
+\fancyhead[R]{page \thepage\ of \pageref*{LastPage}} % Testata destra: numero di pagina
 \fancyfoot[R]{\textit{\textbf{Andrea Savastano}}} % Piè di pagina a destra con il tuo nome
 
 
@@ -72,6 +76,7 @@
 	\tableofcontents
 	\newpage
 	
+	\enablelinkcolor
 	\section{Commandi git}
 	\input{git-commands.tex}
 	

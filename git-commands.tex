@@ -44,8 +44,9 @@ Oppure può servire per sostituire l'URL vecchio del repository remoto con uno n
 	git remote -v
 \end{lstlisting}
 Mostra l'elenco dei repository remoti associati al repository locale, insieme agli URL per \texttt{fetch} e \texttt{push}.
-\begin{lstlisting}[language=bash, backgroundcolor=\color{green!5}]
-	# output:
+\lstsetComments
+\begin{lstlisting}[language=bash]
+	# Output di esempio:
 	origin  https://github.com/savaava/ShellCommands.git (fetch)
 	origin  https://github.com/savaava/ShellCommands.git (push)
 \end{lstlisting}
@@ -73,6 +74,7 @@ I comandi si approfondiscono ai paragrafi successivi.
 \end{minipage}\vspace{.2cm}\\
 E' importante monitorare sempre lo stato della repository con \texttt{git status}, per tenere traccia dei cambiamenti in corso d'opera.
 
+\lstsetNoComments
 \subsubsection{git status}
 \begin{lstlisting}[language=bash]
 	git status
@@ -84,7 +86,8 @@ Il comando in esame fornisce informazioni anche sui file che la repo sta monitor
 	\item I file \textbf{Tracked} sono già sotto il controllo di Git, quindi sono i file già caricati precedentemente nella repository, e possono essere \textbf{Unmodified}, \textbf{Modified} o \textbf{Deleted}.
 \end{itemize}
 I file Untracked, Modified e Deleted sono colorati in rosso nel terminale quando non sono stati ancora aggiunti alla staging area con \texttt{git add}. Una volta aggiunti saranno verdi.\\
-\begin{lstlisting}[language=bash, backgroundcolor=\color{green!5}]
+\lstsetComments
+\begin{lstlisting}[language=bash]
 	# Output quando non sono state apportate modifiche:
 	On branch main
 	Your branch is up to date with 'origin/main'.
@@ -93,7 +96,7 @@ I file Untracked, Modified e Deleted sono colorati in rosso nel terminale quando
 \end{lstlisting}
 In questo caso la repository in locale è sul branch \texttt{main} come suggerisce la riga 2, ed è collegato al branch remoto \texttt{origin/main} e sono entrambi aggiornati con gli stessi dati come suggerisce la riga 3.\\
 La riga 5 suggerisce che non vi sono modifiche aggiunte alla staging area per cui non c'è nulla da committare.
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\begin{lstlisting}
 	!!# Output quando e' stato creato, modificato ed eliminato un file:!!
 	On branch main
 	Your branch is up to date with 'origin/main'.
@@ -108,7 +111,7 @@ La riga 5 suggerisce che non vi sono modifiche aggiunte alla staging area per cu
 	no changes added to commit
 \end{lstlisting}
 
-
+\lstsetNoComments
 \subsubsection{git add}
 \begin{lstlisting}[language=bash]
 	git add <file>...
@@ -118,7 +121,8 @@ Aggiunge alla staging area i file specificati, che sono stati creati, modificati
 Quindi il comando aggiunge alla staging area le modifiche apportate alla repository rispetto alla versione precedente.\\
 E' efficace utilizzare direttamente \texttt{git add .} perchè aggiunge velocemente alla staging area tutte le modifiche apportate alla working directory, quindi tutti i file aggiunti (\texttt{Untracked}), tutti i file modificati (\texttt{Modified}) e tutti i file eliminati (\texttt{Deleted}).\vspace{.3cm}\\
 Rispetto all'esempio sopra proposto che prevede tre modifiche alla repo, eseguiamo \texttt{git add .} per aggiunge tali modifiche alla staging area e analizziamo lo stato della repo tramite \texttt{git status}:
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\lstsetComments
+\begin{lstlisting}
 	!!# Output quando vengono aggiunte 3 modifiche:!!
 	On branch main
 	Your branch is up to date with 'origin/main'.      
@@ -131,6 +135,7 @@ Rispetto all'esempio sopra proposto che prevede tre modifiche alla repo, eseguia
 Si noti che ora le tre modifiche sono nella staging area e pronte per essere committate.
 
 \newpage
+\lstsetNoComments
 \subsubsection{git commit}
 \begin{lstlisting}[language=bash]
 	git commit -m "message"
@@ -143,7 +148,8 @@ In questo modo la repo locale e quella remota non sono più aggiornate con gli s
 \end{lstlisting}
 Aggiungendo l'opzione \texttt{-a} è possibile saltare la staging area e aggiungere le modifiche direttamente alla repository locale come commit. Tuttavia non è in grado di aggiungere alla commit i file Untracked, i quali devono necessariamente passare per la staging area (\texttt{git add .}).\\
 
-\begin{lstlisting}[language=bash, backgroundcolor=\color{green!5}]
+\lstsetComments
+\begin{lstlisting}[language=bash]
 	# Stato della repo quando e' stata effettuata una sola commit: 
 	On branch main
 	Your branch is ahead of 'origin/main' by 1 commit.
@@ -151,6 +157,7 @@ Aggiungendo l'opzione \texttt{-a} è possibile saltare la staging area e aggiung
 	nothing to commit, working tree clean
 \end{lstlisting}
 
+\lstsetNoComments
 \subsubsection{git push}
 \begin{lstlisting}[language=bash]
 	git push
@@ -177,7 +184,7 @@ Preleva le eventuali modifiche della repository remota e le carica in locale, ag
 \begin{minipage}{.48\textwidth}
 	I branch (rami) sono una delle potenzialità più rilevanti per Git perchè consentono ai contributori del progetto di lavorare in parallelo sullo stesso progetto che si trova sempre in remoto.\\
 	Un branch diverso da quello \texttt{main} (\texttt{Master} nell'immagine) è una versione del progetto diversa rispetto a quella originale perchè si caricano modifiche sul branch ausiliario e non più sul \texttt{main}.\\
-	Sarà possibile eliminare il branch e perdere eventuali modifiche, oppure effettuare una merge (fusione) con quello \texttt{main} e ricongiungersi al percorso originale.
+	Sarà possibile eliminare il branch e perdere eventuali modifiche, oppure effettuare una merge (fusione) con quello \texttt{main} e ricongiungersi al percorso originale (come avviene nell'immagine).
 \end{minipage}
 \hfil
 \begin{minipage}{.48\textwidth}
@@ -185,18 +192,39 @@ Preleva le eventuali modifiche della repository remota e le carica in locale, ag
 	Il branch rosso \texttt{Bugfix} e quello verde \texttt{Feature} sono branch ausiliari che si ricongiungono col \texttt{main}, dopo aver apportato le modifiche per cui sono stati creati.
 \end{minipage}
 \syllab
+\vspace{.3cm}\\
+Esattamente come per le repository, anche per i branch vi è una distinzione tra locale e remoto. Infatti:
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item Un \textbf{branch locale} si trova nella repository Git locale al dispositivo;
+	\item Un \textbf{branch remoto} si trova nella repository Git remota (GitHub).
+\end{itemize}
+E' molto utile collegarli perchè è possibile utilizzare i comandi \texttt{git pull} e \texttt{git push} senza dover specificare esplicitamente il branch remoto.\\
+Collegare i branch significa configurare il branch locale affinché tracci il branch remoto.
 
 \subsubsection{git branch}
 \begin{lstlisting}[language=bash]
 	git branch "nome-branch"
 \end{lstlisting}
-Crea un nuovo branch in a cui si assegna il nome specificato.\\
-Il branch si salva solo in locale e non in remoto, su cui è possibile caricarlo.\\
+Crea un nuovo branch locale a cui si assegna il nome specificato.\\
+Il branch si salva solo in locale e non in remoto, su cui è possibile caricarlo tramite i comandi che seguono.\\
 
 \begin{lstlisting}[language=bash]
-	git push --set-upstream origin "nome-branch"
+	git push --set-upstream origin <branch-locale>
 \end{lstlisting}
-Salva il branch specificato come \texttt{\color{blue!70!black}"nome-branch"} nel remoto con nome \texttt{origin} di default, collegandolo a quello locale.\\
+Il \texttt{<branch-locale>} deve esistere, altrimenti restituisce un errore per cui non trova il branch specificato.\\ 
+Crea un nuovo branch remoto con nome \texttt{remotes/origin/<branch-locale>} (se non esiste già), collegandolo al branch locale \texttt{<branch-locale>} specificato.\\
+Se il branch remoto con nome \texttt{remotes/origin/<branch-locale>} esiste già allora non c'è la necessità di creare nessun branch remoto e il comando si limita a collegarlo al \texttt{<branch-locale>}.\\
+
+\begin{lstlisting}[language=bash]
+	git branch --set-upstream-to=origin/<branch-remoto> <branch-locale>
+\end{lstlisting}
+Entrambi i branch, \texttt{<branch-locale>} e \texttt{origin/<branch-remoto>}, devono esistere e in caso contrario, il comando restituirà un errore segnalando che il branch specificato non è stato trovato.\\ 
+Il comando non crea nessun branch, nè in locale nè in remoto, bensì collega il branch remoto specificato (\texttt{origin/<branch-remoto>}) con quello locale specificato (\texttt{<branch-locale>}).\\
+Questo comando è utile in alcuni scenari:
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item Quando si ha già un branch remoto e uno locale, ma questi non sono ancora collegati;
+	\item Quando si vuole cambiare il branch remoto tracciato da un branch locale.
+\end{itemize}
 
 \begin{lstlisting}[language=bash]
 	git branch -a
@@ -206,8 +234,9 @@ Mostra tutti i branch attualmente esistenti sulla repository locale e remota, ed
 	\item I branch remoti sono rossi e iniziano col prefisso \texttt{remotes/} seguito dal nome del remoto (\texttt{origin} di default) e il nome del branch, quindi \texttt{remotes/<nome-remoto>/<nome-branch>};
 	\item I branch locali sono rappresentati solo dal nome assegnatovi.\\
 \end{itemize}
+\lstsetComments
 \begin{minipage}{.45\textwidth}
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\begin{lstlisting}
   !!# Output 1 di esempio:!!
 * ||main||
   @@remotes/origin/main@@
@@ -215,7 +244,7 @@ Mostra tutti i branch attualmente esistenti sulla repository locale e remota, ed
 \end{minipage}
 \hfill
 \begin{minipage}{.45\textwidth}
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\begin{lstlisting}
   !!# Output 2 di esempio:!!
 * ||Bugfix||
   main
@@ -223,21 +252,23 @@ Mostra tutti i branch attualmente esistenti sulla repository locale e remota, ed
   remotes/origin/main@@
 \end{lstlisting}
 \end{minipage}\\
-In entrambi gli esempi esiste il branch locale \texttt{\color{green!60!black}main} collegato al branch remoto \texttt{\color{red}remotes/origin/main}, per cui se il branch corrente è il main le push caricano le commit sul corrispettivo branch remoto.\\
+In entrambi gli esempi esiste il branch locale \texttt{\color{green!48!black}main} collegato al branch remoto \texttt{\color{red}remotes/origin/main}, per cui se il branch corrente è il main le push caricano le commit sul corrispettivo branch remoto.\\
 L'asterisco \texttt{*} indica qual è il branch attualmente attivo sulla repository locale.\\
 
+\lstsetNoComments
 \begin{lstlisting}[language=bash]
 	git branch -vv
 \end{lstlisting}
 Mostra tutti i branch creati nella repository locale e i loro eventuali corrispettivi in remoto. Quindi indica se un branch locale è associato a un branch remoto, e inoltre mostra l'ultimo commit effettuato su ogni branch, specificandone il messaggio e il commit hash.\\
 E' un altro comando di utilità insieme a \texttt{git branch -a}.\\
 Il formato di output è: \texttt{branch-locale commit-hash [branch-remoto-associato] commit-message}.
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\lstsetComments
+\begin{lstlisting}
   !!# Output 1 di esempio:!!
 * ||Bugfix|| e65f5a9 [££origin/Bugfix££] update file.txt
   main   425f35d [££origin/main££] create file
 \end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{green!5}]
+\begin{lstlisting}
   !!# Output 2 di esempio:!!
   Bugfix  e65f5a9 [££origin/Bugfix££] update file.txt
   branch2 425f35d create file
@@ -245,6 +276,7 @@ Il formato di output è: \texttt{branch-locale commit-hash [branch-remoto-associ
 \end{lstlisting}
 In questo secondo esempio il branch \texttt{branch2} non è associato a nessun branch remoto e quindi esiste solo in locale, ed è una diramazione del \texttt{main} perchè si nota che parte dalla stessa commit.\\
 
+\lstsetNoComments
 \begin{lstlisting}[language=bash]
 	git branch -d "nome-branch"
 \end{lstlisting}

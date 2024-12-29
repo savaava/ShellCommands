@@ -20,7 +20,7 @@
 % ******************************** SETUP ********************************
 \lstset{
 	basicstyle=\ttfamily, % Testo principale in nero
-	commentstyle=\color{green!40!black}, % Commenti in verde scuro
+	commentstyle=\color{green!30!black}, % Commenti in verde scuro
 	stringstyle=\color{blue!70!black}, % Stringhe in blu scuro
 	backgroundcolor=\color{gray!15}, % Sfondo grigio chiaro
 	frame=single, % Cornice attorno al codice
@@ -29,9 +29,20 @@
 	showstringspaces=false,
 	tabsize=1, % Dimensione del tab
 	moredelim=[is][\color{red}]{@@}{@@}, % @@ delimitatori personalizzati
-	moredelim=[is][\color{green!60!black}]{||}{||},
-	moredelim=[is][\color{green!40!black}]{!!}{!!},
+	moredelim=[is][\color{green!48!black}]{||}{||},
+	moredelim=[is][\color{green!30!black}]{!!}{!!},
 	moredelim=[is][\color{blue}]{££}{££}
+}
+
+\newcommand{\lstsetComments}{
+	\lstset{
+		backgroundcolor=\color{green!5}
+	}
+}
+\newcommand{\lstsetNoComments}{
+	\lstset{
+		backgroundcolor=\color{gray!15}
+	}
 }
 
 

@@ -19,15 +19,15 @@
 
 % ******************************** SETUP ********************************
 \lstset{
-	basicstyle=\ttfamily, % Testo principale in nero
-	commentstyle=\color{green!30!black}, % Commenti in verde scuro
-	stringstyle=\color{blue!70!black}, % Stringhe in blu scuro
-	backgroundcolor=\color{gray!15}, % Sfondo grigio chiaro
-	frame=single, % Cornice attorno al codice
-	numbers=left, % Numeri di linea a sinistra
-	numberstyle=\small\color{gray!70}, % Numeri in grigio tenue
+	basicstyle=\ttfamily,
+	commentstyle=\color{green!30!black},
+	stringstyle=\color{blue!70!black},
+	backgroundcolor=\color{gray!15},
+	frame=single,
+	numbers=left,
+	numberstyle=\small\color{gray!70},
 	showstringspaces=false,
-	tabsize=1, % Dimensione del tab
+	tabsize=1,
 	moredelim=[is][\color{red}]{@@}{@@}, % @@ delimitatori personalizzati
 	moredelim=[is][\color{green!48!black}]{||}{||},
 	moredelim=[is][\color{green!30!black}]{!!}{!!},
@@ -51,27 +51,27 @@
 }
 \newcommand{\enablelinkcolor}{
 	\hypersetup{
-		linkcolor=blue,          % Colore dei link interni
+		linkcolor=blue,
 	}
 }
 
 % Nuovo comando per disabilitare la sillabazione e ripristinare dopo
 \newcommand{\nosyllab}{
-	\hyphenpenalty=10000   % Impedisce la sillabazione automatica
-	\exhyphenpenalty=10000 % Impedisce la sillabazione interna alle parole
-	\setlength{\emergencystretch}{3em} % Aiuta a prevenire il disallineamento dei margini
+	\hyphenpenalty=10000
+	\exhyphenpenalty=10000
+	\setlength{\emergencystretch}{3em}
 }
 \newcommand{\syllab}{
-	\hyphenpenalty=50      % Impostazione predefinita per la sillabazione
-	\exhyphenpenalty=50    % Impostazione predefinita per la sillabazione
-	\setlength{\emergencystretch}{0pt} % Impostazione di default
+	\hyphenpenalty=50
+	\exhyphenpenalty=50
+	\setlength{\emergencystretch}{0pt}
 }
 
-\pagestyle{fancy} % Imposta lo stile predefinito del documento
-\fancyhf{} % Pulisce intestazioni e piè di pagina
-\fancyhead[L]{\nouppercase{\leftmark}} % Testata sinistra: sezione corrente
-\fancyhead[R]{page \thepage\ of \pageref*{LastPage}} % Testata destra: numero di pagina
-\fancyfoot[R]{\textit{\textbf{Andrea Savastano}}} % Piè di pagina a destra con il tuo nome
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{page \thepage\ of \pageref*{LastPage}}
+\fancyfoot[R]{\textit{\textbf{Andrea Savastano}}}
 
 
 % ******************************** MAIN PAGE INFO ********************************
@@ -85,18 +85,19 @@
 	\maketitle
 	\disablelinkcolor
 	\tableofcontents
-	\newpage
 	
 	\enablelinkcolor
+	
+	\newpage
+	\section{Comandi bash}
+	\input{bash-commands.tex}
+	
+	\newpage
 	\section{Commandi git}
 	\input{git-commands.tex}
 	
 	\newpage
 	\section{Comandi ssh}
 	\input{ssh-commands.tex}
-	
-	\newpage
-	\section{Comandi bash}
-	\input{bash-commands.tex}
 	
 \end{document}

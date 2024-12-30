@@ -180,18 +180,18 @@ Preleva le eventuali modifiche della repository remota e le carica in locale, ag
 
 \newpage
 \subsection{Branch}
-\nosyllab
-\begin{minipage}{.48\textwidth}
-	I branch (rami) sono una delle potenzialità più rilevanti per Git perchè consentono ai contributori del progetto di lavorare in parallelo sullo stesso progetto che si trova sempre in remoto.\\
-	Un branch diverso da quello \texttt{main} (\texttt{Master} nell'immagine) è una versione del progetto diversa rispetto a quella originale perchè si caricano modifiche sul branch ausiliario e non più sul \texttt{main}.\\
+
+\begin{minipage}{.46\textwidth}
+	I branch (rami) sono una delle potenzialità più rilevanti per Git perchè consentono ai contributori del progetto di lavorare in parallelo sullo stesso progetto, che si trova sempre in remoto (GitHub).\\
+	Branch differenti rappresentano linee di sviluppo indipendenti, quindi sono versioni diverse del progetto, con file differenti, perchè le modifiche si caricano su uno dei branch ausiliari e non più sul \texttt{main} o \texttt{Master}.\\
 	Sarà possibile eliminare il branch e perdere eventuali modifiche, oppure effettuare una merge (fusione) con quello \texttt{main} e ricongiungersi al percorso originale (come avviene nell'immagine).
 \end{minipage}
 \hfil
-\begin{minipage}{.48\textwidth}
-	\includegraphics[width=\textwidth]{images/gitBranches.png}
+\begin{minipage}{.46\textwidth}
+	\includegraphics[width=\textwidth]{images/gitBranches.png}\vspace{.3cm}\\
+	\label{fig:branches}
 	Il branch rosso \texttt{Bugfix} e quello verde \texttt{Feature} sono branch ausiliari che si ricongiungono col \texttt{main}, dopo aver apportato le modifiche per cui sono stati creati.
 \end{minipage}
-\syllab
 \vspace{.3cm}\\
 Esattamente come per le repository, anche per i branch vi è una distinzione tra locale e remoto. Infatti:
 \begin{itemize}[noitemsep, topsep=3pt]
@@ -278,22 +278,26 @@ In questo secondo esempio il branch \texttt{branch2} non è associato a nessun b
 
 \lstsetNoComments
 \begin{lstlisting}[language=bash]
-	git branch -d "nome-branch"
+	git branch -d <nome-branch>
 \end{lstlisting}
 Elimina il branch specificato dalla repository locale e non il suo eventuale corrispettivo remoto.\\
 
 \begin{lstlisting}[language=bash]
-	git push --delete origin "nome-branch"
+	git push --delete origin <nome-branch>
 \end{lstlisting}
 Elimina il branch specificato dal remoto \texttt{origin} e non il branch in locale.\\
 
+\newpage
 \subsubsection{git checkout}
 \begin{lstlisting}[language=bash]
-	git checkout "nome-branch" 
+	git checkout <nome-branch> 
 \end{lstlisting}
-\begin{lstlisting}[language=bash]
-	git checkout -b "nome-branch" 
-\end{lstlisting}
+Cambia il branch corrente con \texttt{<nome-branch>}, il quale deve necessariamente esistere.\\
+Cambiare il branch attualmente in uso significa cambiare anche i dati della working directory con i file e il contenuto del branch selezionato, in quanto branch differenti rappresentano linee di sviluppo indipendenti (Figura a \ref{fig:branches}). Infatti branch differenti possono avere:
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item file diversi, per cui un branch potrebbe contenere file che non esistono nel branch da cui ci si è spostati;
+	\item stessi file (nome uguale) con contenuto differente.
+\end{itemize}
 
 \subsubsection{git diff}
 \begin{lstlisting}[language=bash]

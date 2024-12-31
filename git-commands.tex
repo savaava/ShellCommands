@@ -301,13 +301,83 @@ Cambiare il branch attualmente in uso significa cambiare anche i dati della work
 
 \subsubsection{git diff}
 \begin{lstlisting}[language=bash]
-	git diff "nome-branch" 
+	git diff [options] <nome-branch>
+	git diff [options] <nome-branch1> <nome-branch2>
 \end{lstlisting}
+Mostra le differenze tra il branch corrente e il branch specificato nel comando (riga 1), mentre se vengono specificati entrambi i branch da confrontare (riga 2) il confronto viene effettuato tra questi, senza coinvolgere quello corrente.\\
+E' possibile eseguire il comando senza alcun \texttt{[option]} per un risultato più generico. Tuttavia in base al criterio con cui si vogliono confrontare i due branch si possono usare 1 o più \texttt{[options]} specifiche;\\
+le più utili sono:
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item \texttt{---stat} Mostra differenze di riepilogo tra i due branch (numeri di righe aggiunte/rimosse);
+	\item \texttt{---diff-filter=<A|M|D|R|U|\dots>} Filtra le modifiche tra i due branch per tipo:
+	\begin{itemize}[noitemsep, topsep=0pt]
+		\item[\texttt{<A>}] per aggiunte;
+		\item[\texttt{<M>}] per modifiche;
+		\item[\texttt{<D>}] per eliminazioni;
+		\item[\texttt{<R>}] per rinomine;
+		\item[\texttt{<U>}] Non unito (usato nei conflitti di merge).
+	\end{itemize}
+\end{itemize}\vspace{.5cm}
+\lstsetComments
+Gli esempi che seguono si basano sulla seguente struttura:\vspace{.3cm}\\
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[language=bash]
+	# branch corrente: main
+	$ ls -1
+	fileContInv.txt
+	fileInvariato.txt
+	fileMain.txt
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[language=bash]
+	# branch corrente: bugfix
+	$ ls -1
+	fileBugFix.txt
+	fileContenutoInv.txt
+	fileInvariato.txt
+	fileMain.txt
+\end{lstlisting}	
+\end{minipage}
+\begin{itemize}[noitemsep, topsep=3pt]
+	\item Il \texttt{main} conserva \texttt{fileContInv.txt}, mentre \texttt{bugfix} l'ha rinominato come  \texttt{fileContenutoInv.txt}, senza cambiarne il contenuto;
+	\item Entrambi i branch conservano lo stesso file \texttt{fileInvariato.txt} (stesso contenuto e nome);
+	\item Il file \texttt{fileMain.txt} con lo stesso nome in entrambi i branch, ma con contenuto diverso;
+	\item il branch \texttt{bugfix} aggiunge il file \texttt{fileBugFix.txt} che invece il main non possiede.
+\end{itemize}
+\begin{lstlisting}
+	!!# Output di esempio 1:!!
+	$ git diff --stat main bugfix
+	fileBugFix.txt                          | 1 ||+||
+	fileContInv.txt => fileContenutoInv.txt | 0
+	fileMain.txt                            | 2 ||+||@@-@@
+	3 files changed, 2 insertions(+), 1 deletion(-)
+\end{lstlisting}
+\begin{lstlisting}
+	!!# Output di esempio 2:!!
+	$ git diff --stat --diff-filter=A main bugfix
+	fileBugFix.txt | 1 ||+||
+	1 file changed, 1 insertion(+)
+\end{lstlisting}
+\begin{lstlisting}
+	!!# Output di esempio 3:!!
+	$ git diff --stat --diff-filter=M main bugfix
+	fileMain.txt | 2 ||+||@@-@@
+	1 file changed, 1 insertion(+), 1 deletion(-)
+\end{lstlisting}
+\begin{lstlisting}[language=bash]
+	# Output di esempio 4:
+	$ git diff --stat --diff-filter=R main bugfix
+	fileContInv.txt => fileContenutoInv.txt | 0
+	1 file changed, 0 insertions(+), 0 deletions(-)
+\end{lstlisting}
+\lstsetNoComments
 
 \subsubsection{git merge}
 \begin{lstlisting}[language=bash]
-	git checkout main;
-	git merge "nome-branch"
+	git checkout main
+	git merge <nome-branch>
 \end{lstlisting}
 
 

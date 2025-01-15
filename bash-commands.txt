@@ -170,8 +170,7 @@ rmdir <dir> ...    	rimuove 1 o più dir (empty)
 rm <files|dirs>   	rimuove 1 o più file o dir
 rm -r		  		(-r = --recursive)   rimuove le dir e i loro contenuti ricorsivamente
 rm -i		  		(-i = --interactive) prompt before every removal
-rm -f 		  		(-f = --force) 	 ignore nonexistent files and arguments,
-										 never prompt
+rm -f 		  		(-f = --force) 	 ignore nonexistent files and arguments, never prompt
 rm -v				(-v = --verbose) explain what is being done
 
 

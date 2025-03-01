@@ -297,8 +297,11 @@ echo -e "Ciao\nMondo\nhello" | grep "[[:upper:]]" | tr [:upper:] [:lower:]
 echo -e "scale=3 \n 12/7; scale=5; e(1)" | bc -l
 echo 12.0/3 | bc -l
 
-sed -i "s/hello/ciao/g" prova.txt; cat prova.txt
+sed -i "s/hello/ciao/g" prova.txt
 sed --in-place=.bak "s/okok/weee/g" prova.txt; cat prova.txt prova.txt.bak
+sed -i '/^$/d' $1
+sed -i 's/^/"/g' $1
+sed -i 's/$/",/g' $1
 
 --------------------------------------------------------------------------------------
 find <pathname> <pathname> ... [opzioni] 
